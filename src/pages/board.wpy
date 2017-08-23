@@ -1,0 +1,23 @@
+<style lang="less">
+
+</style>
+
+<template lang="wxml">
+    <view></view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Board extends wepy.page {
+  config = {
+    // 导航栏标题文字内容
+    navigationBarTitleText: '八哥影评_榜单'
+  };
+  components = {};
+  data = {};
+  methods = {};
+  events = {};
+  onLoad() {};
+}
+</script>
