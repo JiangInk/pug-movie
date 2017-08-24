@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+import wepy from 'wepy';
 
 export default class Search extends wepy.page {
   config = {
