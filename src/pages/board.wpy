@@ -22,8 +22,33 @@ export default class Board extends wepy.page {
   methods = {};
   events = {};
   async onLoad() {
-    let list = await api.testapi();
-    this.list = list.subjects;
+    let res1 = await api.testapi();
+    console.log(`res1: ${JSON.stringify(res1)}.`);
+
+    // let res2 = await api.getShowingMovieList();
+    // console.log(`res2: ${JSON.stringify(res2)}.`);
+
+    // let res3 = await api.getComingMovieList();
+    // console.log(`res3: ${JSON.stringify(res3)}.`);
+
+    // let res4 = await api.getTopMovieList();
+    // console.log(`res4: ${JSON.stringify(res4)}.`);
+
+    // let res5 = await api.getUsMovieList();
+    // console.log(`res5: ${JSON.stringify(res5)}.`);
+
+    // let res6 = await api.getMovieSubject('26363254');
+    // console.log(`res6: ${JSON.stringify(res6)}.`);
+
+    // let res7 = await api.getMovieCelebrity('1000525');
+    // console.log(`res7: ${JSON.stringify(res7)}.`);
+
+    // let res8 = await api.getMovieSearch({
+    //   q: '异形',
+    //   start: 0,
+    //   count: 20
+    // });
+    // console.log(`res8: ${JSON.stringify(res8)}.`);
   };
 }
 </script>

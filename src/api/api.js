@@ -27,8 +27,6 @@ const apiRequest = async (url, method = 'GET', data = {}) => {
   }
 };
 
-const testapi = data => apiRequest(`${basicUrl}/in_theaters`, 'GET', data || {city: '成都'});
-
 // 获取正在上映的电影列表
 const getShowingMovieList = async data => {
   let url = `${basicUrl}/in_theaters`;
@@ -58,15 +56,42 @@ const getTopMovieList = async data => {
   return await apiRequest(url, 'GET', data);
 };
 
+// 北美票房榜
 const getUsMovieList = async (data = {}) => {
   let url = `${basicUrl}/us_box`;
   return await apiRequest(url, 'GET', data);
 };
 
+// 电影条目信息
+const getMovieSubject = async subjectId => {
+  let url = `${basicUrl}/subject/${subjectId}`;
+  return await apiRequest(url, 'GET');
+};
+
+// 影人条目信息
+const getMovieCelebrity = async celebrityId => {
+  let url = `${basicUrl}/celebrity/${celebrityId}`;
+  return await apiRequest(url, 'GET');
+};
+
+// 电影条目搜索
+const getMovieSearch = async data => {
+  let url = `${basicUrl}/search`;
+  data = data || {
+    q: '关键字',
+    tag: '关联标签',
+    start: 0,
+    count: 20
+  };
+  return await apiRequest(url, 'GET', data);
+};
+
 module.exports = {
-  testapi,
   getShowingMovieList,
   getComingMovieList,
   getTopMovieList,
-  getUsMovieList
+  getUsMovieList,
+  getMovieSubject,
+  getMovieCelebrity,
+  getMovieSearch
 };
