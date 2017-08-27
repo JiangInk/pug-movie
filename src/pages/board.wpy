@@ -8,7 +8,7 @@
 
 <script>
 import wepy from 'wepy';
-import api from '../api/api';
+import doubanApi from '../api/doubanApi';
 
 export default class Board extends wepy.page {
   config = {
@@ -22,28 +22,25 @@ export default class Board extends wepy.page {
   methods = {};
   events = {};
   async onLoad() {
-    let res1 = await api.testapi();
-    console.log(`res1: ${JSON.stringify(res1)}.`);
-
-    // let res2 = await api.getShowingMovieList();
+    // let res2 = await doubanApi.getShowingMovieList();
     // console.log(`res2: ${JSON.stringify(res2)}.`);
 
-    // let res3 = await api.getComingMovieList();
+    // let res3 = await doubanApi.getComingMovieList();
     // console.log(`res3: ${JSON.stringify(res3)}.`);
 
-    // let res4 = await api.getTopMovieList();
+    // let res4 = await doubanApi.getTopMovieList();
     // console.log(`res4: ${JSON.stringify(res4)}.`);
 
-    // let res5 = await api.getUsMovieList();
+    // let res5 = await doubanApi.getUsMovieList();
     // console.log(`res5: ${JSON.stringify(res5)}.`);
 
-    // let res6 = await api.getMovieSubject('26363254');
+    // let res6 = await doubanApi.getMovieSubject('26363254');
     // console.log(`res6: ${JSON.stringify(res6)}.`);
 
-    // let res7 = await api.getMovieCelebrity('1000525');
-    // console.log(`res7: ${JSON.stringify(res7)}.`);
+    let res7 = await doubanApi.getMovieCelebrity('1000525');
+    console.log(`res7: ${JSON.stringify(res7)}.`);
 
-    // let res8 = await api.getMovieSearch({
+    // let res8 = await doubanApi.getMovieSearch({
     //   q: '异形',
     //   start: 0,
     //   count: 20

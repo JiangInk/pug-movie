@@ -1,12 +1,23 @@
 <style lang="less">
-.container {
+// Global style write by less
+// Build to dist/app.wxss
+page {
+  // display: flex;
+  // flex-direction: column;
   height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  font-family: -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
+}
+
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   box-sizing: border-box;
+  height: 100%;
 }
+
 </style>
 
 <script>
@@ -16,7 +27,7 @@ import 'wepy-async-function';
 export default class extends wepy.app {
   config = {
     pages: [
-      // 'pages/splash',
+      'pages/splash',
       'pages/board',
       'pages/search',
       'pages/profile'
@@ -78,36 +89,6 @@ export default class extends wepy.app {
     super();
     this.use('requestfix');
     this.use('promisify');
-  }
-
-  onLaunch() {
-    this.testAsync();
-  }
-
-  sleep (s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved');
-      }, s * 1000);
-    });
-  }
-
-  async testAsync () {
-    const data = await this.sleep(3);
-    console.log(data);
-  }
-
-  getUserInfo(cb) {
-    const that = this;
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo;
-    }
-    wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo;
-        cb && cb(res.userInfo);
-      }
-    });
   }
 }
 </script>
