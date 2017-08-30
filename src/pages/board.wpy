@@ -1,9 +1,24 @@
 <style lang="less">
-
+.title {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  color: black;
+  text-align: center;
+  background: rgba(255,255,255,0.4);
+  width: 100%;
+}
 </style>
 
 <template lang="wxml">
-  <view>{{list}}</view>
+  <swiper indicator-dots="true" autoplay="true">
+    <block wx:for="{{ list }}" wx:key="{{ item.id }}">
+      <swiper-item>
+        <div class="title">{{ item.title }}</div>
+        <image src="{{ item.images.large }}" width="355" height="150"/>
+      </swiper-item>
+    </block>
+  </swiper>
 </template>
 
 <script>
@@ -22,7 +37,12 @@ export default class Board extends wepy.page {
   methods = {};
   events = {};
   async onLoad() {
-    // let res2 = await doubanApi.getShowingMovieList();
+    let res2 = await doubanApi.getShowingMovieList({
+      start: 0,
+      count: 10
+    });
+    this.list = res2.subjects;
+    this.$apply();
     // console.log(`res2: ${JSON.stringify(res2)}.`);
 
     // let res3 = await doubanApi.getComingMovieList();
@@ -37,8 +57,8 @@ export default class Board extends wepy.page {
     // let res6 = await doubanApi.getMovieSubject('26363254');
     // console.log(`res6: ${JSON.stringify(res6)}.`);
 
-    let res7 = await doubanApi.getMovieCelebrity('1000525');
-    console.log(`res7: ${JSON.stringify(res7)}.`);
+    // let res7 = await doubanApi.getMovieCelebrity('1000525');
+    // console.log(`res7: ${JSON.stringify(res7)}.`);
 
     // let res8 = await doubanApi.getMovieSearch({
     //   q: '异形',

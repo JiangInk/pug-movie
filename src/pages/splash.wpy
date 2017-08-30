@@ -68,14 +68,13 @@ export default class Splash extends wepy.page {
     console.log(`enter cacheData.`);
     try {
       let res = await wepy.getStorage({ key });
-      // console.log(`cacheData: ${JSON.stringify(res.data)}.`);
       // 当数据过期
       if (res.data.expires < Date.now()) {
         return null;
       }
       return res.data.movies;
     } catch (err) {
-      console.warn(`getCache err: ${JSON.stringify(err)}.`);
+      console.warn(`getCache err: ${err.stack}.`);
       return null;
     }
   };
@@ -88,7 +87,7 @@ export default class Splash extends wepy.page {
         data
       });
     } catch (err) {
-      console.error(`setCache err: ${JSON.stringify(err)}.`);
+      console.error(`setCache err: ${err.stack}.`);
     }
   };
 
@@ -96,14 +95,8 @@ export default class Splash extends wepy.page {
     const TTL = Date.now() + 1 * 24 * 60 * 60 * 1000;
     const splashKeyName = 'last_splash_data';
     let movieCache = await this.getCache(splashKeyName);
-    console.log(`movieCache: ${JSON.stringify(movieCache)}.`);
     if (movieCache) {
-      console.log(`------>;`);
       this.movies = movieCache;
-      // this.$apply();
-      // this.setData({
-      //   movies: movieCache
-      // });
     } else {
       try {
         let resData = await doubanApi.getComingMovieList({
@@ -117,14 +110,20 @@ export default class Splash extends wepy.page {
           expires: TTL
         });
       } catch (err) {
-        console.error(`err: ${JSON.stringify(err)}.`);
+        console.error(`err: ${err.stack}.`);
         wepy.showToast({
           title: '请求失败',
-          icon: 'fail',
+          icon: 'loading',
           duration: 1500
         });
       }
     }
   };
+
+  handleStart() {
+    wepy.switchTab({
+      url: 'board'
+    });
+  }
 }
 </script>
