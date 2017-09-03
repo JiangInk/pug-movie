@@ -11,14 +11,17 @@
 </style>
 
 <template lang="wxml">
-  <swiper indicator-dots="true" autoplay="true">
-    <block wx:for="{{ list }}" wx:key="{{ item.id }}">
-      <swiper-item>
-        <div class="title">{{ item.title }}</div>
-        <image src="{{ item.images.large }}" width="355" height="150"/>
-      </swiper-item>
-    </block>
-  </swiper>
+<scroll-view class="container" scroll-y="true">
+    <swiper indicator-dots="true" autoplay="true">
+        <block wx:for="{{ boards[0].movies }}" wx:key="{{ item.id }}">
+          <swiper-item>
+            <div class="title">{{ item.title }}</div>
+            <image src="{{ item.images.large }}" width="355" height="150"/>
+          </swiper-item>
+        </block>
+      </swiper>
+</scroll-view>
+  
 </template>
 
 <script>
@@ -32,18 +35,31 @@ export default class Board extends wepy.page {
   };
   components = {};
   data = {
-    list: []
+    list: [],
+    boards: [
+      {key: 'getShowingMovieList'},
+      {key: 'getComingMovieList'},
+      {key: 'getTopMovieList'},
+      {key: 'getUsMovieList'}
+    ]
   };
   methods = {};
   events = {};
   async onLoad() {
-    let res2 = await doubanApi.getShowingMovieList({
-      start: 0,
-      count: 10
-    });
-    this.list = res2.subjects;
-    this.$apply();
+    // let res2 = await doubanApi['getShowingMovieList']({
+    //   start: 0,
+    //   count: 10
+    // });
+    // this.list = res2.subjects;
     // console.log(`res2: ${JSON.stringify(res2)}.`);
+    this.boards = await Promise.all(this.boards.map(async board => {
+      console.log(`${JSON.stringify(board)}`);
+      let res = await doubanApi[board.key]({start: 0, count: 10});
+      board.title = res.title;
+      board.movies = res.subjects;
+      return board;
+    }));
+    this.$apply();
 
     // let res3 = await doubanApi.getComingMovieList();
     // console.log(`res3: ${JSON.stringify(res3)}.`);
